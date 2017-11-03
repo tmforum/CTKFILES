@@ -1,0 +1,232 @@
+{
+  "id": "b0dec3b3-3992-de93-e500-a33b845aa794",
+  "name": "TMForum",
+  "values": [
+    {
+      "enabled": true,
+      "key": "Host",
+      "value": "http://env-0693795.jelastic.servint.net:8080",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "billingManagementApi",
+      "value": "{{Host}}/DSBillingManagement/api/billingManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "billingManagementAdminApi",
+      "value": "{{Host}}/DSBillingManagement/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "billingManagementSubscriberApi",
+      "value": "{{Host}}/DSBillingManagement/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "partyManagementApi",
+      "value": "{{Host}}/DSPartyManagement/api/partyManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "partyManagementAdminApi",
+      "value": "{{Host}}/DSPartyManagement/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "partyManagementSubscriberApi",
+      "value": "{{Host}}/DSPartyManagement/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "customerManagementApi",
+      "value": "{{Host}}/DSCustomerManagement/api/customerManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "customerManagementAdminApi",
+      "value": "{{Host}}/DSCustomerManagement/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "customerManagementSubscriberApi",
+      "value": "{{Host}}/DSCustomerManagement/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "productOrderingApi",
+      "value": "{{Host}}/DSProductOrdering/api/productOrdering/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "productOrderingAdminApi",
+      "value": "{{Host}}/DSProductOrdering/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "productOrderingSubscriberApi",
+      "value": "{{Host}}/DSProductOrdering/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "troubleTicketingApi",
+      "value": "{{Host}}/DSTroubleTicket/api/troubleTicketManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "troubleTicketingAdminApi",
+      "value": "{{Host}}/DSTroubleTicket/api/admin/troubleTicket",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "troubleTicketingSubscriberApi",
+      "value": "{{Host}}/DSTroubleTicket/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "productInventoryApi",
+      "value": "{{Host}}/DSProductInventory/api/productInventory/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "productInventoryAdminApi",
+      "value": "{{Host}}/DSProductInventory/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "productInventorySubscriberApi",
+      "value": "{{Host}}/DSProductInventory/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "catalogManagementApi",
+      "value": "{{Host}}/DSProductCatalog/api/catalogManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "catalogManagementAdminApi",
+      "value": "{{Host}}/DSProductCatalog/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "catalogManagementSubscriberApi",
+      "value": "{{Host}}/DSProductCatalog/subscriber/eventApi",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "slaManagementApi",
+      "value": "{{Host}}/DSLAManagement/api/slaManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "slaManagementSubscriberApi",
+      "value": "{{Host}}/DSLAManagement/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "slaManagementAdminApi",
+      "value": "{{Host}}/DSLAManagement/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "usageManagementApi",
+      "value": "{{Host}}/DSUsageManagement/api/usageManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "usageManagementSubscriberApi",
+      "value": "{{Host}}/DSUsageManagement/subscriber/api",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "usageManagementAdminApi",
+      "value": "{{Host}}/DSUsageManagement/api/admin/usage",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "testName",
+      "value": "7dbc8442-02f3-dacd-12e5-f8986682dc40",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "url1",
+      "value": "http://env-0693795.jelastic.servint.net/DSCustomerManagement/api/customerManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "appointmentManagementApi",
+      "value": "{{Host}}/DSAppointmentManagement/api/appointment/v1",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "quoteManagementApi",
+      "value": "{{Host}}/DSQuoteManagement/api/quoteManagement/v1",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "addressManagementApi",
+      "value": "{{Host}}/DSAddressManagement/api/addressManagement/v1",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "addressManagementAdminApi",
+      "value": "{{Host}}/DSAddressManagement/api/admin",
+      "type": "text"
+    },
+	    {
+      "enabled": true,
+      "key": "documentManagementApi",
+      "value": "{{Host}}/DSDocumentManagement/api/documentManagement/v2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "documentManagementAdminApi",
+      "value": "{{Host}}/DSDocumentManagement/api/admin",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "documentManagementSubscriberApi",
+      "value": "{{Host}}/DSDocumentManagement/subscriber/api",
+      "type": "text"
+    },
+  ],
+  "timestamp": 1494160980325,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-05-07T12:54:39.189Z",
+  "_postman_exported_using": "Postman/4.10.7"
+}

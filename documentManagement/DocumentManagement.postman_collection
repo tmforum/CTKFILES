@@ -1,0 +1,492 @@
+{
+	"id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+	"name": "TmForum Document Management API CTK",
+	"description": "This is the CTK for the TMFroum Document Management specification",
+	"order": [],
+	"folders": [
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "e7840c31-962e-8946-e23c-288c307515d0",
+			"name": "TC_DocMng_E1 - Invalid Request - Unknown Document Identifier",
+			"order": [
+				"91ef0d72-f4f7-25c5-57a6-eed8708257e1"
+			],
+			"owner": 0
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "817cf36b-d8d4-b377-cae4-87e738e43a62",
+			"name": "TC_DocMng_E2 - Invalid Request - Missing mandatory parameter",
+			"order": [
+				"3c3907d8-b63e-f0fc-df39-de60b1a2f971"
+			],
+			"owner": 0
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "226e5d60-e1ae-2191-bffd-c589e4a868f5",
+			"name": "TC_DocMng_E3 – Invalid Request – Missing parameter mandatory in context",
+			"order": [
+				"9b607fe1-2a14-f768-75c2-1d39f9e487bf"
+			],
+			"owner": 0
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "5eb9ecb4-14ae-253c-5556-fea5d34b586b",
+			"name": "TC_DocMng_N1 – Search for documents with specific characteristics",
+			"order": [
+				"5bbe84e4-2a4c-451e-0735-bee4bee9c197",
+				"a4d87330-c031-5c96-10f3-950e3598d3ed",
+				"dd7c2284-92e9-b650-9bf7-3df99b13f598",
+				"2325b894-0aa3-33aa-6150-c06b438cba97"
+			],
+			"owner": 0
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "0c445bb4-26b2-3e47-5002-bafa2928f3a1",
+			"name": "TC_DocMng_N3 – Filtered Search and Filtered data response",
+			"order": [
+				"f82d65ff-b67c-4b06-ba3c-6dec34a6e666"
+			],
+			"owner": 0
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "7cd600a0-cc42-30f9-632f-c42d9c0dc6e2",
+			"name": "TC_DocMng_N4 - Create Document",
+			"order": [
+				"0f273e99-7008-72db-9bf3-d92f02dd3703"
+			],
+			"owner": 0
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"description": "",
+			"folders_order": [],
+			"id": "db9f0a68-1dab-5dd4-5f84-0038698b542c",
+			"name": "TC_Doc_N2 - Filtered retrieval of documents",
+			"order": [
+				"f262ff5d-d1dc-0596-367c-95c4a47814a9",
+				"c135106e-d22a-c2ce-bf91-242cff521699"
+			],
+			"owner": 0
+		}
+	],
+	"folders_order": [
+		"e7840c31-962e-8946-e23c-288c307515d0",
+		"817cf36b-d8d4-b377-cae4-87e738e43a62",
+		"226e5d60-e1ae-2191-bffd-c589e4a868f5",
+		"5eb9ecb4-14ae-253c-5556-fea5d34b586b",
+		"db9f0a68-1dab-5dd4-5f84-0038698b542c",
+		"0c445bb4-26b2-3e47-5002-bafa2928f3a1",
+		"7cd600a0-cc42-30f9-632f-c42d9c0dc6e2"
+	],
+	"timestamp": 0,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "0f273e99-7008-72db-9bf3-d92f02dd3703",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{documentManagementApi}}/Document",
+			"folder": "7cd600a0-cc42-30f9-632f-c42d9c0dc6e2",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "if (responseCode.code < 400){\n// DATA\n\nvar sentData = JSON.parse(request.data);\nconsole.log(sentData);\nvar receivedData = JSON.parse(responseBody);\nvar attachmentArray = [];\nattachmentArray = receivedData.attachment;\nconsole.log(attachmentArray);\nvar id = receivedData.id;\nvar requiredFields = [\"id\", \"href\", \"version\", \"description\", \"lifecycleState\", \"creationDate\", \"type\", \"attachment\"];\nconsole.log(\"Array requiredFields [\" +requiredFields+ \"] has \" +requiredFields.length+ \" elements\");\n//var attachmentData = postman.getGlobalVariable(\"attachmentData\");\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\")\ntests[\"Status code is successful for POST\"] = responseCode.code === 201 || 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray); \ntests[\"Response contains location header\"] = responseHeaders.hasOwnProperty(\"Location\");\ntests[\"Location header is correct\"] = responseHeaders.hasOwnProperty(\"Location\") \n    && (postman.getResponseHeader(\"Location\").toString() == \"/DSDocument/api/DocumentManagement/v2/Document/\"+id || //relative\n    postman.getResponseHeader(\"Location\").toString() == getUrlFromEnvironment('http://localhost:8080/DSDocument/api/DocumentManagement/v2') + \"/document/\"+id);   //absolute\ntests[\"POST Body Response equals Request Body\"  ] = objectEquals(sentData, receivedData);\n\n//PREPARATION FOR FOLLOWING TESTS\n//postman.setGlobalVariable(\"documentId\", receivedData.id.toString());\n//postman.setGlobalVariable(\"documentPostRequest\", request.data);\n//postman.setGlobalVariable(\"attachmentData\", receivedData.attachment);//Make sure this takes the full array!\n}\n\n//HELPING FUNCTIONS\n/* testing for equality v2 may have more properties than v1 but not less */\nfunction objectEquals(v1, v2) {\n    if (typeof(v1) === \"function\") {\n        return v1.toString() === v2.toString();\n    }\n    else if (v1 instanceof Object && v2 instanceof Object) {\n        var r = true;\n        for (var k in v1) {\n            r = objectEquals(v1[k], v2[k]);\n            if (!r) {\n                //tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]] = false;\n                //tests[\"type1 \" + typeof(v1[k]) + \" type2 \" + typeof(v2[k])] = false;\n                return false;\n            }\n        }\n        return true;\n    }\n    else return v1 === v2;\n}\n\nfunction getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    \n\t\t\tconsole.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1507110505103,
+			"name": "/document",
+			"description": "Create a Document",
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"responses": [],
+			"rawModeData": "{\r\n  \"id\": \"23456\",\r\n  \"name\": \"Brian's second document\",\r\n  \"version\": \"2.1\",\r\n  \"type\": \"string\",\r\n  \"creationDate\": \"2017-09-12\",\r\n  \"lifecycleState\": \"Draft\",\r\n  \"relatedParty\": [\r\n    {\r\n      \"href\": \"string\",\r\n      \"role\": \"string\"\r\n    }\r\n  ],\r\n  \"relatedObject\": [\r\n    {\r\n      \"involvement\": \"string\",\r\n      \"reference\": \"string\"\r\n    }\r\n  ],\r\n  \"attachment\": [\r\n    {\r\n      \"URL\": \"string\",\r\n      \"size\": \"1\",\r\n      \"sizeUnit\": \"MB\",\r\n      \"attachmentId\": \"54321\",\r\n      \"attachmentHref\": \"string\"\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve all Draft Documents",
+			"folder": "5eb9ecb4-14ae-253c-5556-fea5d34b586b",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "2325b894-0aa3-33aa-6150-c06b438cba97",
+			"method": "GET",
+			"name": "GET /document?lifecycleState=Draft",
+			"pathVariableData": [],
+			"pathVariables": {},
+			"preRequestScript": "",
+			"queryParams": [
+				{
+					"description": "",
+					"equals": true,
+					"key": "lifecycleState",
+					"value": "Draft"
+				}
+			],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\nvar receivedData = JSON.parse(responseBody);\nvar requiredFields = [\"id\", \"href\", \"version\", \"description\", \"lifecycleState\", \"creationDate\", \"type\", \"attachment\"];\nvar attachmentArray = [];\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\nif (Array.isArray(receivedData))\n{\n    for (var j = 0; j < receivedData.length; j++)\n    {\n        for (z = 0; z < receivedData[j].attachment.length; z++)\n        {\n            attachmentArray.push(receivedData[j].attachment[z]);\n        }\n    }\n}\nelse\n{\n    attachmentArray = receivedData.attachment;\n}\nconsole.log(attachmentArray);\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\")\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\n\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray);\n}\n\n//tests[\"Response contains created resource\"] = findElementInList(id, receivedData);\n//tests[\"Element contained equals previous creation\"] = objectEquals(lastRequest, receivedData[getPositionOfElementInList(id, receivedData)]);\n\n//PREPARATION FOR FOLLOWING TESTS\n\n\n//HELPING FUNCTIONS\n/* testing for equality v2 may have more properties than v1 but not less */\n/*function objectEquals(v1, v2) {\n    if (typeof(v1) === \"function\") {\n        return v1.toString() === v2.toString();\n    }\n    else if (v1 instanceof Object && v2 instanceof Object) {\n        var r = true;\n        for (var k in v1) {\n            r = objectEquals(v1[k], v2[k]);\n            if (!r) {\n                //tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]] = false;\n                //tests[\"type1 \" + typeof(v1[k]) + \" type2 \" + typeof(v2[k])] = false;\n                return false;\n            }\n        }\n        return true;\n    }\n    else return v1 === v2;\n}*/\n\n/*function findElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return true;\n    }\n    return false;\n}*/\n\n/*function getPositionOfElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return i;\n    }\n    return -1;\n}\n\nfunction getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}\n\nfunction getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    console.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"url": "{{documentManagementApi}}/Document?lifecycleState=Draft"
+		},
+		{
+			"id": "3c3907d8-b63e-f0fc-df39-de60b1a2f971",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{documentManagementApi}}/Document",
+			"folder": "817cf36b-d8d4-b377-cae4-87e738e43a62",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\ntests[\"Status code is 404\"] = responseCode.code === 404;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1507110897945,
+			"name": "/document",
+			"description": "Create a Document",
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"responses": [],
+			"rawModeData": "{\r\n  \"id\": \"23456\",\r\n  \"name\": \"Brian's second document\",\r\n  \"version\": \"2.1\",\r\n  \"type\": \"string\",\r\n  \"creationDate\": \"2017-09-12\",\r\n  \"lifecycleState\": \"Draft\",\r\n  \"relatedParty\": [\r\n    {\r\n      \"href\": \"string\",\r\n      \"role\": \"string\"\r\n    }\r\n  ],\r\n  \"relatedObject\": [\r\n    {\r\n      \"involvement\": \"string\",\r\n      \"reference\": \"string\"\r\n    }\r\n  ],\r\n  \"attachment\": [\r\n    {\r\n      \"URL\": \"string\",\r\n      \"size\": \"1\",\r\n      \"sizeUnit\": \"MB\",\r\n      \"attachmentId\": \"54321\",\r\n      \"attachmentHref\": \"string\"\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve the list of Documents",
+			"folder": "5eb9ecb4-14ae-253c-5556-fea5d34b586b",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "5bbe84e4-2a4c-451e-0735-bee4bee9c197",
+			"method": "GET",
+			"name": "/document",
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"queryParams": [],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\n\nvar receivedData = JSON.parse(responseBody);\n//var id = postman.getGlobalVariable(\"documentId\");\n//var lastRequest = JSON.parse(postman.getGlobalVariable(\"documentPostRequest\"));\nvar requiredFields = [\"id\", \"href\", \"version\", \"description\", \"lifecycleState\", \"creationDate\", \"type\", \"attachment\"];\nconsole.log(\"Array requiredFields [\" +requiredFields+ \"] has \" +requiredFields.length+ \" elements\");\nvar attachmentArray = [];\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\nif (Array.isArray(receivedData))\n{\n    for (var j = 0; j < receivedData.length; j++)\n    {\n        for (z = 0; z < receivedData[j].attachment.length; z++)\n        {\n            attachmentArray.push(receivedData[j].attachment[z]);\n        }\n    }\n}\nelse\n{\n    attachmentArray = receivedData.attachment;\n}\nconsole.log(attachmentArray);\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\ntests[\"Status code is 200\"] = responseCode.code === 200;\n//tests[\"Response contains ID\"] = findFieldInBody('id',receivedData);\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\n\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray);\n//tests[\"Response contains created resource\"] = findElementInList(id, receivedData);\n\n//PREPARATION FOR FOLLOWING TESTS\n}\n\n//HELPING FUNCTIONS\n\n/*function findElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return true;\n    }\n    return false;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    console.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}\n\n/*function getPositionOfElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return i;\n    }\n    return -1;\n}\n\nfunction getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}*/",
+			"url": "{{documentManagementApi}}/Document"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve a document specified by id",
+			"folder": "e7840c31-962e-8946-e23c-288c307515d0",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "91ef0d72-f4f7-25c5-57a6-eed8708257e1",
+			"method": "GET",
+			"name": "GET /document/{{id}} 404",
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"queryParams": [],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\ntests[\"Status code is 404\"] = responseCode.code === 404;",
+			"url": "{{documentManagementApi}}/Document/2123456789"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"dataMode": "raw",
+			"description": "Create a Document",
+			"folder": "226e5d60-e1ae-2191-bffd-c589e4a868f5",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "9b607fe1-2a14-f768-75c2-1d39f9e487bf",
+			"method": "POST",
+			"name": "/document",
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"queryParams": [],
+			"rawModeData": "The Document to be created",
+			"responses": [],
+			"tests": "//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\ntests[\"Status code is 404\"] = responseCode.code === 404;",
+			"url": "{{documentManagementApi}}/Document"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve a Document specified by id",
+			"folder": "5eb9ecb4-14ae-253c-5556-fea5d34b586b",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "a4d87330-c031-5c96-10f3-950e3598d3ed",
+			"method": "GET",
+			"name": "GET /document/{{id}}",
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"queryParams": [],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\nvar receivedData = JSON.parse(responseBody);\nvar attachmentArray = [];\nattachmentArray = receivedData.attachment;\nconsole.log(attachmentArray);\n//var id = receivedData.id;\nvar requiredFields = [\"id\", \"href\", \"version\", \"description\", \"lifecycleState\", \"creationDate\", \"type\", \"attachment\"];\nconsole.log(\"Array requiredFields [\" +requiredFields+ \"] has \" +requiredFields.length+ \" elements\");\n//var attachmentData = postman.getGlobalVariable(\"attachmentData\");\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray);\n\n//PREPARATION FOR FOLLOWING TESTS\n}\n\n//HELPING FUNCTIONS\n\n/*function findElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return true;\n    }\n    return false;\n}*/\n\n/*function getPositionOfElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return i;\n    }\n    return -1;\n}*/\n\n/*function getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    \n\t\t\tconsole.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"url": "{{documentManagementApi}}/Document/{{documentId}}"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve the type, creationDate and attachment of a Document specified by id",
+			"folder": "db9f0a68-1dab-5dd4-5f84-0038698b542c",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "c135106e-d22a-c2ce-bf91-242cff521699",
+			"method": "GET",
+			"name": "GET /document/{{id}}?fields=type,creationDate,attachment",
+			"pathVariableData": [],
+			"pathVariables": {},
+			"preRequestScript": "",
+			"queryParams": [
+				{
+					"description": "",
+					"equals": true,
+					"key": "fields",
+					"value": "type,creationDate,attachment"
+				}
+			],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\nvar receivedData = JSON.parse(responseBody);\nvar id = receivedData.id;\n//var lastRequest = JSON.parse(postman.getGlobalVariable(\"documentRequest\"));\nvar queryParams = URLToArray(request.url);\nvar fields = queryParams[\"fields\"].split(',');fields.push('id');// ID is always returned\nvar requiredFields = [\"id\",\"type\",\"creationDate\", \"attachment\"];\nvar attachmentArray = [];\nattachmentArray = receivedData.attachment;\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray);\ntests[\"Response contains chosen fields only\"] = checkFields(fields,receivedData);\n//tests[\"Element contained equals previous creation\"] = filteredObjectEquals(lastRequest, receivedData);\n}\n//PREPARATION FOR FOLLOWING TESTS\n\n\n//HELPING FUNCTIONS\n/* testing for equality v2 may have more properties than v1 but not less */\n/*function filteredObjectEquals(v1, v2) {\n    if (v1 === undefined || v2 === undefined)\n        return true;\n    else if (typeof(v1) === \"function\") \n        return v1.toString() === v2.toString();\n    else if (v1 instanceof Object && v2 instanceof Object) {\n        var r = true;\n        for (var k in v1) {\n            r = filteredObjectEquals(v1[k], v2[k]);\n            if (!r) \n                return false;\n        }\n        return true;\n    }\n    else return v1 === v2;\n}*/\n\nfunction checkFields(fields,body){\n    for (var key in body)\n        if (fields.indexOf(key) < 0)\n            return false;\n    return true;\n}\n\nfunction URLToArray(url) {\n    var request = {};\n    var pairs = url.substring(url.indexOf('?') + 1).split('&');\n    for (var i = 0; i < pairs.length; i++) {\n        if(!pairs[i])\n            continue;\n        var pair = pairs[i].split('=');\n        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);\n     }\n     return request;\n}\n\n/*function getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    console.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"url": "{{documentManagementApi}}/Document/{{documentId}}?fields=type,creationDate,attachment"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve all Published Documents",
+			"folder": "5eb9ecb4-14ae-253c-5556-fea5d34b586b",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "dd7c2284-92e9-b650-9bf7-3df99b13f598",
+			"method": "GET",
+			"name": "GET /document?lifecycleState=Published",
+			"pathVariableData": [],
+			"pathVariables": {},
+			"preRequestScript": "",
+			"queryParams": [
+				{
+					"description": "",
+					"equals": true,
+					"key": "lifecycleState",
+					"value": "Published"
+				}
+			],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\nvar receivedData = JSON.parse(responseBody);\nvar requiredFields = [\"id\", \"href\", \"version\", \"description\", \"lifecycleState\", \"creationDate\", \"type\", \"attachment\"];\nvar attachmentArray = [];\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\nif (Array.isArray(receivedData))\n{\n    for (var j = 0; j < receivedData.length; j++)\n    {\n        for (z = 0; z < receivedData[j].attachment.length; z++)\n        {\n            attachmentArray.push(receivedData[j].attachment[z]);\n        }\n    }\n}\nelse\n{\n    attachmentArray = receivedData.attachment;\n}\nconsole.log(attachmentArray);\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\")\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\n\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray);\n}\n\n//tests[\"Response contains created resource\"] = findElementInList(id, receivedData);\n//tests[\"Element contained equals previous creation\"] = objectEquals(lastRequest, receivedData[getPositionOfElementInList(id, receivedData)]);\n\n//PREPARATION FOR FOLLOWING TESTS\n\n\n//HELPING FUNCTIONS\n/* testing for equality v2 may have more properties than v1 but not less */\n/*function objectEquals(v1, v2) {\n    if (typeof(v1) === \"function\") {\n        return v1.toString() === v2.toString();\n    }\n    else if (v1 instanceof Object && v2 instanceof Object) {\n        var r = true;\n        for (var k in v1) {\n            r = objectEquals(v1[k], v2[k]);\n            if (!r) {\n                //tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]] = false;\n                //tests[\"type1 \" + typeof(v1[k]) + \" type2 \" + typeof(v2[k])] = false;\n                return false;\n            }\n        }\n        return true;\n    }\n    else return v1 === v2;\n}*/\n\n/*function findElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return true;\n    }\n    return false;\n}*/\n\n/*function getPositionOfElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return i;\n    }\n    return -1;\n}*/\n\n/*function getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}\n\nfunction getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    console.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"url": "{{documentManagementApi}}/Document?lifecycleState=Published"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve the name, description and lifecycleState of a Document specified by id",
+			"folder": "db9f0a68-1dab-5dd4-5f84-0038698b542c",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "f262ff5d-d1dc-0596-367c-95c4a47814a9",
+			"method": "GET",
+			"name": "GET /document/{{id}}?fields=name,description,lifecycleState",
+			"pathVariableData": [],
+			"pathVariables": {},
+			"preRequestScript": "",
+			"queryParams": [
+				{
+					"description": "",
+					"equals": true,
+					"key": "fields",
+					"value": "name,description,lifecycleState"
+				}
+			],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\nvar receivedData = JSON.parse(responseBody);\nvar id = receivedData.id;\n//var lastRequest = JSON.parse(postman.getGlobalVariable(\"documentRequest\"));\nvar queryParams = URLToArray(request.url);\nvar fields = queryParams[\"fields\"].split(',');fields.push('id');// ID is always returned\nvar requiredFields = [\"id\",\"name\",\"description\", \"lifecycleState\"];\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\")\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\ntests[\"Response contains chosen fields only\"] = checkFields(fields,receivedData);\n//tests[\"Element contained equals previous creation\"] = filteredObjectEquals(lastRequest, receivedData);\n}\n//PREPARATION FOR FOLLOWING TESTS\n\n\n//HELPING FUNCTIONS\n/* testing for equality v2 may have more properties than v1 but not less */\n/*function filteredObjectEquals(v1, v2) {\n    if (v1 === undefined || v2 === undefined)\n        return true;\n    else if (typeof(v1) === \"function\") \n        return v1.toString() === v2.toString();\n    else if (v1 instanceof Object && v2 instanceof Object) {\n        var r = true;\n        for (var k in v1) {\n            r = filteredObjectEquals(v1[k], v2[k]);\n            if (!r) \n                return false;\n        }\n        return true;\n    }\n    else return v1 === v2;\n}*/\n\nfunction checkFields(fields,body){\n    for (var key in body)\n        if (fields.indexOf(key) < 0)\n            return false;\n    return true;\n}\n\nfunction URLToArray(url) {\n    var request = {};\n    var pairs = url.substring(url.indexOf('?') + 1).split('&');\n    for (var i = 0; i < pairs.length; i++) {\n        if(!pairs[i])\n            continue;\n        var pair = pairs[i].split('=');\n        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);\n     }\n     return request;\n}\n\n/*function getUrlFromEnvironment(url){\n    if (url.indexOf('{{') >= 0){\n        part1 = url.substring(0,url.indexOf('{{'));\n        part2 = url.substring(url.indexOf('{{')+2,url.indexOf('}}'));\n        part3 = url.substring(url.indexOf('}}')+2,url.length);\n        return getUrlFromEnvironment(part1) + getUrlFromEnvironment(environment[part2]) + getUrlFromEnvironment(part3);\n    }\n    else return url;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    console.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"url": "{{documentManagementApi}}/Document/{{documentId}}?fields=name,description,lifecycleState"
+		},
+		{
+			"collectionId": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"collection_id": "987a17d1-bd4c-4ac3-4971-d6ccc68123a1",
+			"data": [],
+			"description": "Retrieve the name, creationDate and attachment of all the Draft Documents",
+			"folder": "0c445bb4-26b2-3e47-5002-bafa2928f3a1",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Accept",
+					"value": "application/json"
+				},
+				{
+					"description": "",
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"headers": "Accept: application/json\nContent-Type: application/json",
+			"id": "f82d65ff-b67c-4b06-ba3c-6dec34a6e666",
+			"method": "GET",
+			"name": "GET /document?lifecycleState=Draft&fields=name,creationDate,attachment",
+			"pathVariableData": [],
+			"pathVariables": {},
+			"preRequestScript": "",
+			"queryParams": [
+				{
+					"description": "",
+					"equals": true,
+					"key": "lifecycleState",
+					"value": "Draft"
+				},
+				{
+					"description": "",
+					"equals": true,
+					"key": "fields",
+					"value": "name,creationDate,attachment"
+				}
+			],
+			"rawModeData": "",
+			"responses": [],
+			"tests": "if (responseCode.code < 400){\n// DATA\nvar receivedData = JSON.parse(responseBody);\n//var id1 = postman.getGlobalVariable(\"documentId\");\n//var request1 = JSON.parse(postman.getGlobalVariable(\"documentRequest\"));\nvar queryParams = URLToArray(request.url);\nvar fields = queryParams[\"fields\"].split(',');fields.push('id');// ID is always returned\nvar requiredFields = [\"id\",\"name\",\"creationDate\",\"attachment\"];\nvar attachmentArray = [];\nvar attachmentRequiredFields = [\"id\", \"href\", \"sizeUnit\", \"size\", \"mimeType\"];\n\nif (Array.isArray(receivedData))\n{\n    for (var j = 0; j < receivedData.length; j++)\n    {\n        for (z = 0; z < receivedData[j].attachment.length; z++)\n        {\n            attachmentArray.push(receivedData[j].attachment[z]);\n        }\n    }\n}\nelse\n{\n    attachmentArray = receivedData.attachment;\n}\nconsole.log(attachmentArray);\n\n//TESTS\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\")\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response contains all required fields [ \"+requiredFields+\" ]\"] = findFieldsInBody(requiredFields,receivedData);\ntests[\"Required attachment fields are present [ \"+attachmentRequiredFields+\" ]\"] = findFieldsInBody(attachmentRequiredFields,attachmentArray);\ntests[\"Response only contains chosen fields\"] = checkFieldsInArray(fields,receivedData);\n}\n//PREPARATION FOR FOLLOWING TESTS\n\n\n//HELPING FUNCTIONS\n/* testing for equality v2 may have more properties than v1 but not less */\n/*function filteredObjectEquals(v1, v2) {\n    if (v1 === undefined || v2 === undefined)\n        return true;\n    else if (typeof(v1) === \"function\") \n        return v1.toString() === v2.toString();\n    else if (v1 instanceof Object && v2 instanceof Object) {\n        var r = true;\n        for (var k in v1) {\n            r = filteredObjectEquals(v1[k], v2[k]);\n            if (!r) \n                return false;\n        }\n        return true;\n    }\n    else return v1 === v2;\n}*/\n\nfunction checkFieldsInArray(fields, body){\n    for (var i = 0; i < body.length; i++)\n        if (!checkFields(fields,body[i]))\n            return false;\n    return true;\n}\n\nfunction checkFields(fields,body){\n    for (var key in body)\n        if (fields.indexOf(key) < 0)\n            return false;\n        //else tests[key + \" exists\"] = true;\n    return true;\n}\n\nfunction URLToArray(url) {\n    var request = {};\n    var pairs = url.substring(url.indexOf('?') + 1).split('&');\n    for (var i = 0; i < pairs.length; i++) {\n        if(!pairs[i])\n            continue;\n        var pair = pairs[i].split('=');\n        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);\n     }\n     return request;\n}\n\n/*function findElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId)\n            return true;\n    }\n    return false;\n}*/\n\n/*function getPositionOfElementInList(elementId,list){\n    for (var i = 0; i < list.length; i++){\n        if (list[i].id == elementId){\n            return i;\n        }\n    }\n    return -1;\n}*/\n\nfunction findFieldInBody(field,body){\n    for (var key in body){\n        if (key == field)\n            return true;\n    }\n    return false;\n}\n\nfunction findFieldsInBody(fields,body){\n    var receivedData = JSON.parse(responseBody);\n    var id;\n    var allOk = true;\n\tvar k;\n\tif(Array.isArray(body))\n\t{\n\t\tfor (var i = 0; i < body.length; i++)\n\t\t{\n\t\t    console.log(\"Looking at object i=\" +i+ \" out of \" +body.length+ \" elements\");\n\t\t\tif (Array.isArray(receivedData))\n\t\t\t{\n\t\t\t    id = receivedData[i].id;\n\t\t\t}\n\t\t\telse \n\t\t\t{\n\t\t\t    id = receivedData.id;\n\t\t\t}\n\t\t\tfor (k = 0; k < fields.length; k++)\n\t\t\t{\n\t\t\t\tconsole.log(\"looking for field \"+k+\" in object \"+i);\n\t\t\t\tif (!findFieldInBody(fields[k],body[i]))\n\t\t\t\t{\n\t\t\t\t\tallOk = false;\n\t\t\t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n\t\t\t\t}\n\t\t\t}\n\t\t    \n\t\t}\n\t}\n\telse \n\t{\n\t    \n    \tid = receivedData.id;\n    \tconsole.log(\"below is the id\");\n    \tconsole.log(id);\n    \tfor (k = 0; k < fields.length; k++)\n    \t{\n    \t\tconsole.log(\"body is not an array... Searching field \"+k+\" in object \");\n    \t\t\t\t\n    \t\tif (!findFieldInBody(fields[k],body))\n    \t\t{\n    \t\t\tallOk = false;\n    \t\t\ttests[\"An element is missing the field '\" + fields[k] +\"' in resource with the id : \"+id] = allOk;\n    \t\t}\n    \t}\n\n    }\n    return allOk;\n}",
+			"url": "{{documentManagementApi}}/Document?lifecycleState=Draft&fields=name,creationDate,attachment"
+		}
+	]
+}
