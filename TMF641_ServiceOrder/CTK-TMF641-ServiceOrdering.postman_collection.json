@@ -1,0 +1,1344 @@
+{
+	"info": {
+		"_postman_id": "c80f280c-74e0-4b36-a48a-0f3bee093160",
+		"name": "CTK-TMF641-ServiceOrdering",
+		"description": "## TMF API Reference : TMF 641 - Service Ordering Management\n\n## Release : 18.0 - May 2018\n\nThe Service Order API provides a standardized mechanism for managing Service Order, a type of order which can be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa.\n\n### Service Order resource\nA service order will describe a list of service order items.  A service order item references an action on an existing  or  future  service.  By  service  we  designed  Customer Facing  Service  (CFS)  as  well  as  Resource Facing Service (RFS).\nFrom a component perspective, a service order should be available\n- from a Service Orchestration Component (and it could mix CFS and RFS)\n- from an Infrastructure Control & Management component (and it would have only RFS)\n\n### Service Order API performs the following operations on service order :\n- Retrieval of a service order or a collection of service orders depending on filter criteria\n- Partial update of a service order (including updating rules)\n- Creation of a service order (including default values and creation rules)\n- Deletion of service order (for administration purposes)\n- Notification of events on Service order\n\nCopyright © TM Forum 2018. All Rights Reserved",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TC_ServiceOrder_N1 – Create new ServiceOrder with minimum required information",
+			"description": "",
+			"item": [
+				{
+					"name": "Filled IDSO1 mock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2499e99a-68d9-49c1-8d72-abbcabc5824d",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"pm.test('Content-Type is present', function() { pm.response.to.have.header('Content-Type') });",
+									"pm.test('Content-Type is application/json', function() { pm.response.headers.has('application/json') });",
+									"//Response Code 201-Created",
+									"pm.test(\"Status code is 201 (Conformance Profile page 21)\", function () { pm.response.to.have.status(201); });",
+									"",
+									"",
+									"// Include a location header in the body set to /{apiRoot}/ServiceOrder/{IDSO1} where",
+									"//{IDSO1} indicates the identifier assigned by the server to the new ServiceOrder",
+									"//resource",
+									"var instance = pm.response.json();",
+									"pm.test('Response has id attribute (Conformance Profile page 21)', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.globals.set(\"IDSO1\", instance.id);",
+									"",
+									"",
+									"//The response message includes all mandatory parameters (including id, state and orderDate that were not sent in ",
+									"//the original request)",
+									"",
+									"// Mandatory attributes listed in \"definitions.ServiceOrder.required\" are [id]",
+									"var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"",
+									"// Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"",
+									"",
+									"//The body of the response matches the values set in the original request",
+									"//Hard Coded values",
+									"pm.globals.set(\"externalIdIDSO1\", \"OrangeBSS748\");",
+									"pm.globals.set(\"priorityIDSO1\", \"1\");",
+									"pm.globals.set(\"stateIDSO1\", \"active\");",
+									"pm.globals.set(\"descriptionIDSO1\", \"Service order description\");",
+									"pm.globals.set(\"categoryIDSO1\", \"CloudServiceOrdering\");",
+									"pm.globals.set(\"requestedStartDateIDSO1\", \"2018-01-15T09:37:40.508Z\");",
+									"pm.globals.set(\"requestedCompletionDateIDSO1\", \"2018-01-15T09:37:40.508Z\");",
+									"",
+									"pm.globals.set(\"hrefIDSO1\", instance.href);",
+									"",
+									"",
+									"pm.test(\"externalID in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.externalId).to.eql(pm.globals.get(\"externalIdIDSO1\"));",
+									"});",
+									"",
+									"pm.test(\"priority in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.priority).to.eql(pm.globals.get(\"priorityIDSO1\"));",
+									"});",
+									"",
+									"pm.test(\"description in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.description).to.eql(pm.globals.get(\"descriptionIDSO1\"));",
+									"});",
+									"",
+									"pm.test(\"category in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.category).to.eql(pm.globals.get(\"categoryIDSO1\"));",
+									"});",
+									"pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO1\"));",
+									"});",
+									"pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO1\"));",
+									"});",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"externalId\": \"OrangeBSS748\",\r\n  \"priority\": \"1\",\r\n  \"description\": \"Service order description\",\r\n  \"category\": \"CloudServiceOrdering\",\r\n  \"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\r\n  \"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\r\n  \"@type\": \"standard\",\r\n  \"orderItem\": [{\r\n      \"id\": \"1\",\r\n      \"action\": \"add\",\r\n      \"@type\": \"standard\",\r\n      \r\n      \r\n      \r\n      \"state\": \"active\",\r\n      \r\n      \r\n      \r\n      \r\n      \"service\": {\r\n        \"serviceState\": \"Active\",\r\n        \"serviceCharacteristic\": [{\r\n            \"name\": \"vCPE_IP\",\r\n            \"valueType\": \"String\",\r\n            \"value\": {\r\n              \"@type\": \"IPAddress\",\r\n              \"@schemaLocation\": \"http....\",\r\n              \"vCPE_IP\": \"193.218.236.21\"\r\n            }\r\n          }\r\n        ],\r\n        \"serviceSpecification\": {\r\n          \"id\": \"12\",\r\n          \"href\": \"http://...:serviceSpecification/12\",\r\n          \"name\": \"vCPE\",\r\n          \"version\": \"1\",\r\n          \"@type\": \"vCPE\",\r\n          \"@schemaLocation\": \"http...\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \r\n  \r\n  \r\n  \"startDate\": \"2018-03-15T09:37:40.508Z\",\r\n  \"orderDate\": \"2018-02-15T09:37:40.508Z\",\r\n  \"state\":\"active\"\r\n  \r\n  \r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder"
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				},
+				{
+					"name": "get IDSO1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73cd3005-6bd4-4957-b92c-8d4e63d3f168",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"var instance = pm.response.json();",
+									"",
+									"var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"",
+									"// Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"",
+									"",
+									"//The body of the response matches the values set in the original request",
+									"",
+									"",
+									"pm.test(\"ID in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.globals.get(\"IDSO1\"));",
+									"});",
+									"",
+									"",
+									"pm.test(\"href in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.href).to.eql(pm.globals.get(\"hrefIDSO1\"));",
+									"});",
+									"",
+									"",
+									"pm.test(\"externalID in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.externalId).to.eql(pm.globals.get(\"externalIdIDSO1\"));",
+									"});",
+									"",
+									"pm.test(\"priority in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.priority).to.eql(pm.globals.get(\"priorityIDSO1\"));",
+									"});",
+									"",
+									"pm.test(\"description in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.description).to.eql(pm.globals.get(\"descriptionIDSO1\"));",
+									"});",
+									"",
+									"pm.test(\"category in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.category).to.eql(pm.globals.get(\"categoryIDSO1\"));",
+									"});",
+									"pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO1\"));",
+									"});",
+									"pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO1\"));",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder/{{IDSO1}}",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder",
+								"{{IDSO1}}"
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC_ServiceOrder_N2 – Create new ServiceOrder with minimum set of parameters supported by server",
+			"description": "",
+			"item": [
+				{
+					"name": "Filled IDSO2 mock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6cd08017-ed12-4cb0-9be2-11bb19446277",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"pm.test('Content-Type is present', function() { pm.response.to.have.header('Content-Type') });",
+									"pm.test('Content-Type is application/json', function() { pm.response.headers.has('application/json') });",
+									"//Response Code 201-Created",
+									"pm.test(\"Status code is 201 (Conformance Profile page 21)\", function () { pm.response.to.have.status(201); });",
+									"",
+									"",
+									"// Include a location header in the body set to /{apiRoot}/ServiceOrder/{IDSO1} where",
+									"//{IDSO1} indicates the identifier assigned by the server to the new ServiceOrder",
+									"//resource",
+									"var instance = pm.response.json();",
+									"pm.test('Response has id attribute (Conformance Profile page 21)', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.globals.set(\"IDSO2\", instance.id);",
+									"",
+									"",
+									"//The response message includes all mandatory parameters (including id, state and orderDate that were not sent in ",
+									"//the original request)",
+									"",
+									"// Mandatory attributes listed in \"definitions.ServiceOrder.required\" are [id]",
+									"var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"",
+									"// Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"",
+									"",
+									"//The body of the response matches the values set in the original request",
+									"",
+									"pm.globals.set(\"externalIdIDSO2\", \"OrangeBSS954\");",
+									"pm.globals.set(\"priorityIDSO2\", \"2\");",
+									"pm.globals.set(\"stateIDSO2\", \"active\");",
+									"pm.globals.set(\"descriptionIDSO2\", \"Service order description\");",
+									"pm.globals.set(\"categoryIDSO2\", \"CloudServiceOrdering\");",
+									"pm.globals.set(\"requestedStartDateIDSO2\", \"2018-01-18T09:37:40.508Z\");",
+									"pm.globals.set(\"requestedCompletionDateIDSO2\", \"2018-01-19T09:37:40.508Z\");",
+									"",
+									"pm.globals.set(\"hrefIDSO2\", instance.href);",
+									"",
+									"",
+									"pm.test(\"externalID in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.externalId).to.eql(pm.globals.get(\"externalIdIDSO2\"));",
+									"});",
+									"",
+									"pm.test(\"priority in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.priority).to.eql(pm.globals.get(\"priorityIDSO2\"));",
+									"});",
+									"",
+									"pm.test(\"description in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.description).to.eql(pm.globals.get(\"descriptionIDSO2\"));",
+									"});",
+									"",
+									"pm.test(\"category in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.category).to.eql(pm.globals.get(\"categoryIDSO2\"));",
+									"});",
+									"pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO2\"));",
+									"});",
+									"pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO2\"));",
+									"});",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"externalId\": \"OrangeBSS954\",\r\n\t\"priority\": \"2\",\r\n\t\"description\": \"Service order description\",\r\n\t\"category\": \"CloudServiceOrdering\",\r\n\t\"requestedStartDate\": \"2018-01-18T09:37:40.508Z\",\r\n\t\"requestedCompletionDate\": \"2018-01-19T09:37:40.508Z\",\r\n\t\"@type\": \"standard\",\r\n\t\"orderItem\": [\r\n\t{\r\n\t\t\"id\": \"1\",\r\n\t\t\"action\": \"add\",\r\n\t\t\"@type\": \"standard\",\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\"state\": \"active\",\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\"service\": {\r\n\t\t\t\"serviceState\": \"Active\",\r\n\t\t\t\"serviceCharacteristic\": [\r\n\t\t\t{\r\n\t\t\t\t\"name\": \"vCPE_IP\",\r\n\t\t\t\t\"valueType\": \"String\",\r\n\t\t\t\t\"value\": {\r\n\t\t\t\t\"@type\": \"IPAddress\",\r\n\t\t\t\t\"@schemaLocation\": \"http....\",\r\n\t\t\t\t\"vCPE_IP\": \"193.218.459.78\"\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"serviceSpecification\": {\r\n\t\t\t\"id\": \"12\",\r\n\t\t\t\"href\": \"http://...:serviceSpecification/12\",\r\n\t\t\t\"name\": \"vCPE\",\r\n\t\t\t\"version\": \"1\",\r\n\t\t\t\"@type\": \"vCPE\",\r\n\t\t\t\"@schemaLocation\": \"http...\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t}\r\n\t],\r\n\t  \r\n\t  \r\n\t  \r\n\t\"startDate\": \"2018-03-15T09:37:40.508Z\",\r\n\t\"orderDate\": \"2018-02-15T09:37:40.508Z\",\r\n\t\"state\":\"active\"\r\n\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder"
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				},
+				{
+					"name": "get IDSO2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38d210cf-6a3b-4ac2-884f-f585b4589f39",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"var instance = pm.response.json();",
+									"",
+									"var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"",
+									"// Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"",
+									"",
+									"//The body of the response matches the values set in the original request",
+									"",
+									"",
+									"pm.test(\"externalID in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.externalId).to.eql(pm.globals.get(\"externalIdIDSO2\"));",
+									"});",
+									"",
+									"pm.test(\"priority in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.priority).to.eql(pm.globals.get(\"priorityIDSO2\"));",
+									"});",
+									"",
+									"pm.test(\"description in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.description).to.eql(pm.globals.get(\"descriptionIDSO2\"));",
+									"});",
+									"",
+									"pm.test(\"category in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.category).to.eql(pm.globals.get(\"categoryIDSO2\"));",
+									"});",
+									"pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO2\"));",
+									"});",
+									"pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO2\"));",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder/{{IDSO2}}",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder",
+								"{{IDSO2}}"
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC_ServiceOrder_N3 – Search for ServiceOrder with specific characteristics",
+			"description": "",
+			"item": [
+				{
+					"name": "1. category and specification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f469b568-1d5c-4581-b7e6-8d83222433c3",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+									"  jsonData.forEach(function(instance, index) {",
+									"",
+									"",
+									"    var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"    pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"    ",
+									"    // Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"    pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"    pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"    pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"    pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"    pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"    pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"    pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"    pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"    pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"    pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"    pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"    pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"    pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"    pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"    ",
+									"    ",
+									" //The body of the response matches the values set in the original request",
+									"    ",
+									"    if (instance.id == pm.globals.get(\"IDSO1\")){",
+									"            pm.test(\"ID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.id).to.eql(pm.globals.get(\"IDSO1\"));",
+									"        });",
+									"        ",
+									"        ",
+									"        pm.test(\"href in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.href).to.eql(pm.globals.get(\"hrefIDSO1\"));",
+									"        });",
+									"        ",
+									"        ",
+									"        pm.test(\"externalID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.externalId).to.eql(pm.globals.get(\"externalIdIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"priority in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.priority).to.eql(pm.globals.get(\"priorityIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"description in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.description).to.eql(pm.globals.get(\"descriptionIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"category in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.category).to.eql(pm.globals.get(\"categoryIDSO1\"));",
+									"        });",
+									"        pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO1\"));",
+									"        });",
+									"        pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO1\"));",
+									"        });",
+									"    }",
+									"    ",
+									"    if (instance.id == pm.globals.get(\"IDSO2\")){",
+									"        pm.test(\"externalID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.externalId).to.eql(pm.globals.get(\"externalIdIDSO2\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"priority in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.priority).to.eql(pm.globals.get(\"priorityIDSO2\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"description in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.description).to.eql(pm.globals.get(\"descriptionIDSO2\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"category in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.category).to.eql(pm.globals.get(\"categoryIDSO2\"));",
+									"        });",
+									"        pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO2\"));",
+									"        });",
+									"        pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO2\"));",
+									"        });",
+									"    }",
+									"    ",
+									"  });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder?category=CloudServiceOrdering",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "CloudServiceOrdering"
+								}
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				},
+				{
+					"name": "2. priority and category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ebbdd1ef-3605-4103-989c-692e13eb9ced",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+									"  jsonData.forEach(function(instance, index) {",
+									"",
+									"",
+									"    var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"    pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"    ",
+									"    // Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"    pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"    pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"    pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"    pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"    pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"    pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"    pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"    pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"    pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"    pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"    pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"    pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"    pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"    pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"    ",
+									"    ",
+									" //The body of the response matches the values set in the original request",
+									"    ",
+									"    if (instance.id == pm.globals.get(\"IDSO1\")){",
+									"            pm.test(\"ID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.id).to.eql(pm.globals.get(\"IDSO1\"));",
+									"        });",
+									"        ",
+									"        ",
+									"        pm.test(\"href in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.href).to.eql(pm.globals.get(\"hrefIDSO1\"));",
+									"        });",
+									"        ",
+									"        ",
+									"        pm.test(\"externalID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.externalId).to.eql(pm.globals.get(\"externalIdIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"priority in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.priority).to.eql(pm.globals.get(\"priorityIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"description in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.description).to.eql(pm.globals.get(\"descriptionIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"category in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.category).to.eql(pm.globals.get(\"categoryIDSO1\"));",
+									"        });",
+									"        pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO1\"));",
+									"        });",
+									"        pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO1\"));",
+									"        });",
+									"    }",
+									"    if (instance.id === pm.globals.get(\"IDSO2\")){",
+									"        pm.test(\"ID: \" + pm.globals.get(\"IDSO2\") + \" shouldn't be returned from this search\", function(){",
+									"        pm.expect(0).to.eql(1);",
+									"    });    ",
+									"    }",
+									"    ",
+									"    ",
+									"  });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/ServiceOrder?priority=\"1\"&category=CloudServiceOrdering",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"ServiceOrder"
+							],
+							"query": [
+								{
+									"key": "priority",
+									"value": "\"1\""
+								},
+								{
+									"key": "category",
+									"value": "CloudServiceOrdering"
+								}
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				},
+				{
+					"name": "3. externalID = OrangeBSS954",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f469b568-1d5c-4581-b7e6-8d83222433c3",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+									"  jsonData.forEach(function(instance, index) {",
+									"",
+									"",
+									"    var requiredAttributes = [ 'id','href','state','orderDate','startDate','orderItem'];",
+									"    pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"    ",
+									"    // Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"    pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"    pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"    pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"    pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"    pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"    pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"    pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string') });",
+									"    pm.test('Response has orderDate attribute', function() { pm.expect(instance.orderDate).to.be.a('string'); });",
+									"    pm.test('Response has requestedStartDate attribute', function() { pm.expect(instance.requestedStartDate).to.be.a('string'); });",
+									"    pm.test('Response has requestedCompletionDate attribute', function() { pm.expect(instance.requestedCompletionDate).to.be.a('string'); });",
+									"    pm.test('Response has startDate attribute', function() { pm.expect(instance.startDate).to.be.a('string'); });",
+									"    pm.test('Response has @type attribute', function() { pm.expect(instance['@type']).to.be.a('string'); });",
+									"    pm.test('Response has note attribute', function() { pm.expect(instance.note) });",
+									"    pm.test('Response has orderItem attribute', function() { pm.expect(instance.orderItem).to.be.an.instanceOf(Array); });",
+									"    ",
+									"    ",
+									" //The body of the response matches the values set in the original request",
+									"    ",
+									"    if (instance.id == pm.globals.get(\"IDSO1\")){",
+									"            pm.test(\"ID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.id).to.eql(pm.globals.get(\"IDSO1\"));",
+									"        });",
+									"        ",
+									"        ",
+									"        pm.test(\"href in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.href).to.eql(pm.globals.get(\"hrefIDSO1\"));",
+									"        });",
+									"        ",
+									"        ",
+									"        pm.test(\"externalID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.externalId).to.eql(pm.globals.get(\"externalIdIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"priority in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.priority).to.eql(pm.globals.get(\"priorityIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"description in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.description).to.eql(pm.globals.get(\"descriptionIDSO1\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"category in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.category).to.eql(pm.globals.get(\"categoryIDSO1\"));",
+									"        });",
+									"        pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO1\"));",
+									"        });",
+									"        pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO1\"));",
+									"        });",
+									"    }",
+									"    ",
+									"    if (instance.id == pm.globals.get(\"IDSO2\")){",
+									"        pm.test(\"externalID in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.externalId).to.eql(pm.globals.get(\"externalIdIDSO2\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"priority in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.priority).to.eql(pm.globals.get(\"priorityIDSO2\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"description in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.description).to.eql(pm.globals.get(\"descriptionIDSO2\"));",
+									"        });",
+									"        ",
+									"        pm.test(\"category in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.category).to.eql(pm.globals.get(\"categoryIDSO2\"));",
+									"        });",
+									"        pm.test(\"requestedStartDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedStartDate).to.eql(pm.globals.get(\"requestedStartDateIDSO2\"));",
+									"        });",
+									"        pm.test(\"requestedCompletionDate in response is equal to POST\", function () {",
+									"            ",
+									"            pm.expect(instance.requestedCompletionDate).to.eql(pm.globals.get(\"requestedCompletionDateIDSO2\"));",
+									"        });",
+									"    }",
+									"    ",
+									"  });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder?externalId=OrangeBSS954",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder"
+							],
+							"query": [
+								{
+									"key": "externalId",
+									"value": "OrangeBSS954"
+								}
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC_ServiceOrder_N4 – Filtered retrieval of ServiceOrder",
+			"description": "",
+			"item": [
+				{
+					"name": "1. Filtered Retrieval of ServiceOrder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fe37467-7f98-4344-8733-3004432d6a4c",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"var instance = jsonData;",
+									"var requiredAttributes = [ 'id','href','externalId','priority','state'];",
+									"pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"pm.test('Instance has only filtered attributes', function(){",
+									"   pm.expect(Object.keys(instance).length).to.eql(requiredAttributes.length); ",
+									"});",
+									"",
+									"// Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has href attribute', function() { pm.expect(instance.href).to.be.a('string'); });",
+									"pm.test('Response has externalId attribute', function() { pm.expect(instance.externalId).to.be.a('string'); });",
+									"pm.test('Response has priority attribute', function() { pm.expect(instance.priority).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string'); });",
+									"if (instance.id === pm.globals.get(\"IDSO1\")){",
+									"    pm.test(\"Service order with ID: \" + pm.globals.get(\"IDSO1\") + \" shouldn't be returned from this search\", function(){",
+									"    pm.expect(1).to.eql(0);",
+									"});    ",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder/{{IDSO2}}?fields=id,href,externalId,priority,state",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder",
+								"{{IDSO2}}"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "id,href,externalId,priority,state"
+								}
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Filtered by orderItem sub attributes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d0c1398-33d9-4db6-b45b-b9b9cd97e7d8",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"var instance = jsonData;",
+									"",
+									"pm.test('Instance has only filtered attributes', function(){",
+									"   pm.expect(Object.keys(instance).length).to.eql(requiredAttributes.length); ",
+									"});",
+									"",
+									"// Checking all remaining possible attributes for ServiceOrder, taken from the Swagger file",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string'); });",
+									"pm.test('Response has orderItem.id attribute', function() { pm.expect(instance.orderItem[0].id).to.be.a('string'); });",
+									"pm.test('Response has orderItem.state attribute', function() { pm.expect(instance.orderItem[0].state).to.be.a('string'); });",
+									"pm.test('Response has orderItem.action attribute', function() { pm.expect(instance.orderItem[0].action).to.be.a('string'); });",
+									"",
+									"",
+									"if (instance.id === pm.globals.get(\"IDSO2\")){",
+									"    pm.test(\"Service order with ID: \" + pm.globals.get(\"IDSO2\") + \" shouldn't be returned from this search\", function(){",
+									"    pm.expect(0).to.eql(1);",
+									"});    ",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder/{{IDSO1}}?fields=id, state,orderItem.id,orderItem.state,orderItem.action",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder",
+								"{{IDSO1}}"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "id, state,orderItem.id,orderItem.state,orderItem.action"
+								}
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC_ServiceOrder_N5 – Filtered Search and Filtered data response",
+			"description": "",
+			"item": [
+				{
+					"name": "externalId=OrangeBSS748&fields=id,state,category,description",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b59980c5-d265-415d-be1c-2a0222d5c6c8",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"var instance = jsonData[0];",
+									"",
+									"var requiredAttributes = [ 'id','state','category','description'];",
+									"pm.test('Instance has all mandatory attributes', function() { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) } );",
+									"pm.test('Instance has only filtered attributes', function(){",
+									"   pm.expect(Object.keys(instance).length).length.to.eql(requiredAttributes.length); ",
+									"});",
+									"",
+									"",
+									"pm.test('Response has id attribute', function() { pm.expect(instance.id).to.be.a('string'); });",
+									"pm.test('Response has state attribute', function() { pm.expect(instance.state).to.be.a('string'); });",
+									"pm.test('Response has category attribute', function() { pm.expect(instance.category).to.be.a('string'); });",
+									"pm.test('Response has description attribute', function() { pm.expect(instance.description).to.be.a('string'); });",
+									"",
+									"",
+									"pm.test('Response id is equal IDSO1', function(){ pm.expect(instance.id).to.eql(pm.globals.get(\"IDSO1\"));})",
+									"pm.test('Response state is equal IDSO1', function(){ pm.expect(instance.state).to.eql(pm.globals.get(\"stateIDSO1\"));})",
+									"pm.test('Response category is equal IDSO1', function(){ pm.expect(instance.category).to.eql(pm.globals.get(\"categoryIDSO1\"));})",
+									"pm.test('Response description is equal IDSO1', function(){ pm.expect(instance.description).to.eql(pm.globals.get(\"descriptionIDSO1\"));})",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder?externalId=OrangeBSS748&fields=id,state,category,description",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"serviceOrder"
+							],
+							"query": [
+								{
+									"key": "externalId",
+									"value": "OrangeBSS748"
+								},
+								{
+									"key": "fields",
+									"value": "id,state,category,description"
+								}
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC_ServiceOrder_E1 – Unknown Trouble ServiceOrder identifier",
+			"description": "Send a GET message to /{apiRoot}/ServiceOrder/{IDSO3}, where {IDSO3} does not\nmatch any of the identifiers previously created in the server\n• Wait for a response from the server with the following characteristics\no Response Code 404-Not Found",
+			"item": [
+				{
+					"name": "Send GET to ID that doesn't exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "107c99bc-f011-45be-a4cc-fb93b2a90c45",
+								"type": "text/javascript",
+								"exec": [
+									"// See: https://www.getpostman.com/docs/v6/postman/scripts/postman_sandbox_api_reference",
+									"// Testing POST method on {{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/serviceOrder",
+									"",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"externalId\": \"OrangeBSS000\",\n\t\"priority\": \"1\",\n\t\"description\": \"Service order description\",\n\t\"category\": \"CloudServiceOrdering\",\n\t\"requestedStartDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"requestedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"orderDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"startDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"expectedCompletionDate\": \"2018-01-15T09:37:40.508Z\",\n\t\"notificationContact\": \"email@domain.tld\",\n\t\n\t\"@type\": \"standard\",\n\t\"orderItem\": [\n\t{\n\t\t\"id\": \"1\",\n\t\t\"action\": \"add\",\n\t\t\"@type\": \"standard\",\n\t\t\"service\": {\n\t\t\"serviceState\": \"Active\",\n\t\t\"serviceCharacteristic\": [\n\t\t{\n\t\t\t\"name\": \"vCPE_IP\",\n\t\t\t\"valueType\": \"String\",\n\t\t\t\"value\": {\n\t\t\t\t\"@type\": \"IPAddress\",\n\t\t\t\t\"@schemaLocation\": \"http....\",\n\t\t\t\t\"vCPE_IP\": \"193.218.236.21\"\n\t\t\t}\n\t\t}\n\t\t],\n\t\t\"serviceSpecification\": {\n\t\t\"id\": \"12\",\n\t\t\"href\": \"http://...:serviceSpecification/12\",\n\t\t\"name\": \"vCPE\",\n\t\t\"version\": \"1\",\n\t\t\"@type\": \"vCPE\",\n\t\t\"@schemaLocation\": \"http...\"\n\t\t}\n\t}\n}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/tmf-api/serviceOrdering/v3/1234123123-123123132",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"tmf-api",
+								"serviceOrdering",
+								"v3",
+								"1234123123-123123132"
+							]
+						},
+						"description": "This operation creates a service order entity.\nThe specification document provides the list of mandatory and non mandatory attributes when creating a ServiceOrder, including any possible rule conditions and applicable default values.\nPOST should be used without specifying the id and the href, the Service Order Management system is in charge of generating the id + href for the ServiceOrder.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "dfad7505-210c-434f-b58b-670ab2276308",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "72b1a652-7dc6-4172-9ec6-d69711280233",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
